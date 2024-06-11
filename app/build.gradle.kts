@@ -29,10 +29,12 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-//
-//    buildFeatures {
-//        viewBinding = true
-//    }
+
+    buildFeatures {
+        viewBinding = true
+    }
+
+
 }
 
 dependencies {
@@ -46,9 +48,11 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
-
-//    Shimmer Recycler view
-//    implementation ("com.github.sharish:ShimmerRecyclerView:v1.3") deprecated/repo not found
 //    swipe refresh listener
     implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+//    Picasso
+    implementation ("com.squareup.picasso:picasso:2.8")
+//    volley
+    implementation ("com.android.volley:volley:1.2.1")
+
 }
