@@ -14,7 +14,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.rewardrover.Modals.AdNetModal;
 import com.example.rewardrover.Modals.BannerModal;
+import com.example.rewardrover.Modals.BuyCoinModal;
+import com.example.rewardrover.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,6 +31,8 @@ import java.util.Map;
 public class CoinsRepository {
 
     MutableLiveData<ArrayList<BannerModal>> banners = new MutableLiveData<>();
+    MutableLiveData<ArrayList<BuyCoinModal>> buyCoinList = new MutableLiveData<>();
+    MutableLiveData<ArrayList<AdNetModal>> watchVidList = new MutableLiveData<>();
 
     public LiveData<ArrayList<BannerModal>> getBannersList() {
         return banners;
@@ -61,5 +66,45 @@ public class CoinsRepository {
 
         banners.setValue(bannerModals);
 
+    }
+
+    LiveData<ArrayList<BuyCoinModal>> getBuyCoinsList() {
+        return buyCoinList;
+    }
+    void fetchBuyCoinListFromApi(Context context) {
+        ArrayList<BuyCoinModal> buyCoinModals = new ArrayList<>();
+
+        buyCoinModals.add(new BuyCoinModal(
+                9,10,0
+        ));
+        buyCoinModals.add(new BuyCoinModal(
+                99,110,0
+        ));
+        buyCoinModals.add(new BuyCoinModal(
+                999,1110,0
+        ));
+        buyCoinModals.add(new BuyCoinModal(
+                9999,11110,0
+        ));
+
+        buyCoinList.setValue(buyCoinModals);
+    }
+
+    LiveData<ArrayList<AdNetModal>> getWatchVidList() {
+        return watchVidList;
+    }
+    void fetchWatchVideoListFromApi(Context context) {
+        ArrayList<AdNetModal> watchVidModals = new ArrayList<>();
+
+        watchVidModals.add(new AdNetModal(
+                R.drawable.video_svg, "Watch & Earn I"
+        ));
+        watchVidModals.add(new AdNetModal(
+                R.drawable.video_svg, "Watch & Earn II"
+        ));
+        watchVidModals.add(new AdNetModal(
+                R.drawable.video_svg, "Watch & Earn III"
+        ));
+        watchVidList.setValue(watchVidModals);
     }
 }

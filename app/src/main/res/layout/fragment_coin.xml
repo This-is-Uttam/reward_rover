@@ -25,11 +25,11 @@
 
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/dreampotLogo"
+                android:id="@+id/appLogo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 app:cardCornerRadius="8dp"
-                android:layout_marginStart="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -37,7 +37,7 @@
                 <ImageView
                     android:layout_width="38dp"
                     android:layout_height="38dp"
-                    android:src="@drawable/placeholder"/>
+                    android:src="@drawable/app_icon" />
             </androidx.cardview.widget.CardView>
 
             <TextView
@@ -83,10 +83,24 @@
                 android:text="0"
                 android:textColor="@color/md_theme_primary"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/dreampotLogo"
+                app:layout_constraintBottom_toBottomOf="@+id/appLogo"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/dreampotLogo"
+                app:layout_constraintTop_toTopOf="@+id/appLogo"
                 app:layout_constraintVertical_bias="0.428" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/alatsi_regular"
+                android:text="Reward Rover"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="#1F9F91"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/appLogo"
+                app:layout_constraintStart_toEndOf="@+id/appLogo"
+                app:layout_constraintTop_toTopOf="@+id/appLogo" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -110,6 +124,7 @@
                 android:layout_height="wrap_content">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/vp_parent"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -117,17 +132,17 @@
                     <!--                    android:layout_width="wrap_content"-->
                     <!--                    android:layout_height="match_parent"-->
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/bannerRv"
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/bannerVp"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="140dp"
+                        android:clipToPadding="false"
+                        android:paddingRight="50dp"
                         android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:itemCount="1"
-                        tools:listitem="@layout/promotion_rv_item" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <!--                     Pubscale card-->
 
@@ -143,7 +158,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/bannerRv">
+                        app:layout_constraintTop_toBottomOf="@+id/bannerVp">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
@@ -331,17 +346,29 @@
                         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                         app:layout_constraintEnd_toEndOf="@+id/pubCard"
                         app:layout_constraintStart_toStartOf="@+id/pubCard"
+                        app:layout_constraintTop_toBottomOf="@+id/textView"
                         app:spanCount="2"
                         tools:itemCount="2"
-                        tools:layout_editor_absoluteY="455dp"
                         tools:listitem="@layout/ad_net_rv_item" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/watchVidRv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        app:layout_constraintEnd_toEndOf="@+id/adNetRv"
+                        app:layout_constraintStart_toStartOf="@+id/adNetRv"
+                        app:layout_constraintTop_toBottomOf="@+id/textView9"
+                        app:spanCount="2"
+                        tools:itemCount="2"
+                        tools:listitem="@layout/watch_vid_rv_item" />
 
                     <TextView
                         android:id="@+id/textView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="8dp"
                         android:fontFamily="@font/alatsi_regular"
                         android:text="Earn Coins"
                         android:textSize="24sp"
@@ -349,18 +376,31 @@
                         app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
                     <TextView
-                        android:id="@+id/textView8"
+                        android:id="@+id/textView9"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="8dp"
                         android:fontFamily="@font/alatsi_regular"
-                        android:text="Buy Coins"
+                        android:text="Watch &amp; Earn"
                         android:textSize="24sp"
                         app:layout_constraintStart_toStartOf="@+id/pubCard"
                         app:layout_constraintTop_toBottomOf="@+id/adNetRv" />
 
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/alatsi_regular"
+                        android:text="Buy Coins"
+                        android:textSize="24sp"
+                        app:layout_constraintStart_toStartOf="@+id/pubCard"
+                        app:layout_constraintTop_toBottomOf="@+id/watchVidRv" />
+
                     <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/buyCoinRv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:layout_constraintEnd_toEndOf="@+id/cardView"

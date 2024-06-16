@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -54,9 +55,6 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.Viewholder
         holder.binding.promotionImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               /* Intent intent = new Intent(context, PromotionViewActivity.class);
-                intent.putExtra("PROMOTION_URL", bannerModal.getPromotionImgLink());
-                context.startActivity(intent);*/
 
                 Intent bannerIntent = new Intent(Intent.ACTION_VIEW);
                 Uri uri = Uri.parse(bannerModal.getBannerImgLink());
