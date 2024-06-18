@@ -1,32 +1,17 @@
 package com.example.rewardrover.Coins;
 
-import static com.example.rewardrover.Constants.*;
-
 import android.content.Context;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.rewardrover.Modals.AdNetModal;
 import com.example.rewardrover.Modals.BannerModal;
 import com.example.rewardrover.Modals.BuyCoinModal;
 import com.example.rewardrover.R;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 public class CoinsRepository {
 

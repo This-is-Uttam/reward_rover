@@ -1,28 +1,37 @@
-package com.example.rewardrover;
+package com.example.rewardrover.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 //import com.example.rewardrover.databinding.ActivityMainBinding;
+import com.example.rewardrover.Adapters.MainViewPagerAdapter;
+import com.example.rewardrover.Coins.CoinFragment;
+import com.example.rewardrover.Fragments.HighCoinsFragment;
+import com.example.rewardrover.Fragments.MoreFragment;
+import com.example.rewardrover.Fragments.RedeemFragment;
+import com.example.rewardrover.Fragments.ReferFragment;
+import com.example.rewardrover.R;
 import com.example.rewardrover.databinding.ActivityMainBinding;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,17 +44,74 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivityLocation";
     ActivityMainBinding binding;
     FusedLocationProviderClient fusedLocationProviderClient;
+    ArrayList<Fragment> fragments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-//        setContentView(R.layout.activity_main);
-        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.navHostFragment);
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        NavController navController = navHostFragment.getNavController();
-        NavigationUI.setupWithNavController(bottomNavigationView, navController);
+
+        fragments = new ArrayList<>();
+        fragments.add(new CoinFragment());
+        fragments.add(new HighCoinsFragment());
+        fragments.add(new ReferFragment());
+        fragments.add(new RedeemFragment());
+        fragments.add(new MoreFragment());
+
+        ViewPager2 mainViewPager = binding.mainViewPager;
+
+        mainViewPager.setAdapter(new MainViewPagerAdapter(this, fragments));
+        mainViewPager.setOffscreenPageLimit(5);
+
+        binding.bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                if (item.getItemId() == R.id.coinFragmentMenu) {
+                    mainViewPager.setCurrentItem(0,false);
+                } else if (item.getItemId() == R.id.highCoinsFragmentMenu) {
+                    mainViewPager.setCurrentItem(1,false);
+                } else if (item.getItemId() == R.id.referFragmentMenu) {
+                    mainViewPager.setCurrentItem(2,false);
+                } else if (item.getItemId() == R.id.redeemFragmentMenu) {
+                    mainViewPager.setCurrentItem(3,false);
+                } else if (item.getItemId() == R.id.moreFragmentMenu) {
+                    mainViewPager.setCurrentItem(4,false);
+                }
+                return true;
+            }
+            });
+
+        mainViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                if (positionOffset == 0.0 & positionOffsetPixels == 0) {
+                    switch (position){
+                        case 0:
+                            binding.bottomNavigationView.setSelectedItemId(R.id.coinFragmentMenu);
+                            break;
+                        case 1:
+                            binding.bottomNavigationView.setSelectedItemId(R.id.highCoinsFragmentMenu);
+                            break;
+                        case 2:
+                            binding.bottomNavigationView.setSelectedItemId(R.id.referFragmentMenu);
+                            break;
+                        case 3:
+                            binding.bottomNavigationView.setSelectedItemId(R.id.redeemFragmentMenu);
+                            break;
+                        case 4:
+                            binding.bottomNavigationView.setSelectedItemId(R.id.moreFragmentMenu);
+                            break;
+                    }
+                }
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+            }
+
+        });
+
 
 //        Getting Location
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);

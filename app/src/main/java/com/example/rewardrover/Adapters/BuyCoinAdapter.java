@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class BuyCoinAdapter extends RecyclerView.Adapter<BuyCoinAdapter.Viewholder> {
     ArrayList<BuyCoinModal> buyCoinList;
     Context context;
+    private String TAG = "BuyCoinAdapter";
 
     public BuyCoinAdapter(ArrayList<BuyCoinModal> buyCoinList, Context context) {
         this.buyCoinList = buyCoinList;
@@ -32,6 +33,7 @@ public class BuyCoinAdapter extends RecyclerView.Adapter<BuyCoinAdapter.Viewhold
     @Override
     public Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(com.example.rewardrover.R.layout.buy_coin_item,parent,false);
+        Log.d(TAG, "onCreateViewHolder: called here..");
         return new Viewholder(view);
     }
 

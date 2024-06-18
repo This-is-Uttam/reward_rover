@@ -50,4 +50,11 @@
     </style>
 
     <style name="Theme.RewardRover" parent="AppTheme" />
+
+    <style name="CustomDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/alert_dialog_bg</item>
+        <item name="android:windowMinWidthMajor">80%</item>
+        <item name="android:windowMinWidthMinor">80%</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
 </resources>

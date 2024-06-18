@@ -1,4 +1,4 @@
-package com.example.rewardrover;
+package com.example.rewardrover.Utils;
 
 public class Constants {
 

@@ -81,11 +81,11 @@ public class CoinFragment extends Fragment {
                     viewPager.setClipChildren(false);
                     viewPager.setClipToPadding(false);
 
+//                    For running banners
                     Handler handler = new Handler();
                     Runnable runnable = new Runnable() {
                         @Override
                         public void run() {
-                            Log.d(TAG, "run: Should run: " + shouldRun);
                             if (shouldRun) {
                                 int position = viewPager.getCurrentItem();
                                 position = position + 1;
@@ -181,6 +181,7 @@ public class CoinFragment extends Fragment {
         adNetList.add(new AdNetModal(R.drawable.cpxresearch, "CPX Research"));
         adNetList.add(new AdNetModal(R.drawable.ayetstudios, "Ayet Studios"));
         adNetList.add(new AdNetModal(R.drawable.scratch_win, "Scratch & Win"));
+        adNetList.add(new AdNetModal(R.drawable.spin_win, "Spin & Win"));
 
         binding.adNetRv.setAdapter(new AdNetAdapter(adNetList, requireContext()));
         binding.adNetRv.setLayoutManager(new GridLayoutManager(requireContext(), 2));

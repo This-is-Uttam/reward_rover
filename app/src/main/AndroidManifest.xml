@@ -16,8 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RewardRover"
         tools:targetApi="31">
+        <activity android:name=".Activities.SplashScreenActivity"
+            android:exported="false">
+
+        </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
