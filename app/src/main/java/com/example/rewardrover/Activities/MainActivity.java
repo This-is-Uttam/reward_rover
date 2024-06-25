@@ -4,9 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.fragment.NavHostFragment;
-import androidx.navigation.ui.NavigationUI;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.Manifest;
@@ -15,6 +14,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -30,7 +30,6 @@ import com.example.rewardrover.R;
 import com.example.rewardrover.databinding.ActivityMainBinding;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.io.IOException;
@@ -38,13 +37,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
 
     private static final int LOCATION_REQ_CODE = 1001;
     private static final String TAG = "MainActivityLocation";
     ActivityMainBinding binding;
     FusedLocationProviderClient fusedLocationProviderClient;
     ArrayList<Fragment> fragments;
+    Fragment currentFrg;
+    FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,58 +60,82 @@ public class MainActivity extends AppCompatActivity {
         fragments.add(new RedeemFragment());
         fragments.add(new MoreFragment());
 
-        ViewPager2 mainViewPager = binding.mainViewPager;
+//        ViewPager2 mainViewPager = binding.mainViewPager;
 
-        mainViewPager.setAdapter(new MainViewPagerAdapter(this, fragments));
-        mainViewPager.setOffscreenPageLimit(5);
+//        mainViewPager.setAdapter(new MainViewPagerAdapter(this, fragments));
+//        mainViewPager.setOffscreenPageLimit(5);
+
+            fragmentManager = getSupportFragmentManager();
+        if (savedInstanceState == null) {
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+
+            fragmentTransaction.add(R.id.fragment_container, fragments.get(0), "coinFragment");
+
+            fragmentTransaction.add(R.id.fragment_container, fragments.get(1), "highCoinFragment");
+            fragmentTransaction.hide(fragments.get(1));
+
+            fragmentTransaction.add(R.id.fragment_container, fragments.get(2), "referFragment");
+            fragmentTransaction.hide(fragments.get(2));
+
+            fragmentTransaction.add(R.id.fragment_container, fragments.get(3), "giftFragment");
+            fragmentTransaction.hide(fragments.get(3));
+
+            fragmentTransaction.add(R.id.fragment_container, fragments.get(4), "moreFragment");
+            fragmentTransaction.hide(fragments.get(4));
+
+            fragmentTransaction.commit();
+
+            currentFrg = fragments.get(0);
+        }else {
+            fragments.set(0, getSupportFragmentManager().findFragmentByTag("coinFragment"));
+            fragments.set(1, getSupportFragmentManager().findFragmentByTag("highCoinFragment"));
+            fragments.set(2, getSupportFragmentManager().findFragmentByTag("referFragment"));
+            fragments.set(3, getSupportFragmentManager().findFragmentByTag("giftFragment"));
+            fragments.set(4, getSupportFragmentManager().findFragmentByTag("moreFragment"));
+
+            String curFragTag = savedInstanceState.getString("currentFragmentTag");
+            currentFrg = getSupportFragmentManager().findFragmentByTag(curFragTag);
+
+            if (curFragTag == null){
+                Toast.makeText(this, "Current fragment null", Toast.LENGTH_SHORT).show();
+            }
+
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+            transaction.show(currentFrg).commit();
+        }
+
+
+
+
+
+
 
         binding.bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
                 if (item.getItemId() == R.id.coinFragmentMenu) {
-                    mainViewPager.setCurrentItem(0,false);
+                    changeFragment( currentFrg,  fragments.get(0));
+                    currentFrg = fragments.get(0);
                 } else if (item.getItemId() == R.id.highCoinsFragmentMenu) {
-                    mainViewPager.setCurrentItem(1,false);
+                    changeFragment( currentFrg,  fragments.get(1));
+                    currentFrg = fragments.get(1);
                 } else if (item.getItemId() == R.id.referFragmentMenu) {
-                    mainViewPager.setCurrentItem(2,false);
+                    changeFragment( currentFrg,  fragments.get(2));
+                    currentFrg = fragments.get(2);
                 } else if (item.getItemId() == R.id.redeemFragmentMenu) {
-                    mainViewPager.setCurrentItem(3,false);
+                    changeFragment( currentFrg,  fragments.get(3));
+                    currentFrg = fragments.get(3);
                 } else if (item.getItemId() == R.id.moreFragmentMenu) {
-                    mainViewPager.setCurrentItem(4,false);
+                    changeFragment( currentFrg,  fragments.get(4));
+                    currentFrg = fragments.get(4);
                 }
                 return true;
             }
             });
 
-        mainViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-                if (positionOffset == 0.0 & positionOffsetPixels == 0) {
-                    switch (position){
-                        case 0:
-                            binding.bottomNavigationView.setSelectedItemId(R.id.coinFragmentMenu);
-                            break;
-                        case 1:
-                            binding.bottomNavigationView.setSelectedItemId(R.id.highCoinsFragmentMenu);
-                            break;
-                        case 2:
-                            binding.bottomNavigationView.setSelectedItemId(R.id.referFragmentMenu);
-                            break;
-                        case 3:
-                            binding.bottomNavigationView.setSelectedItemId(R.id.redeemFragmentMenu);
-                            break;
-                        case 4:
-                            binding.bottomNavigationView.setSelectedItemId(R.id.moreFragmentMenu);
-                            break;
-                    }
-                }
-                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
-            }
-
-        });
 
 
 //        Getting Location
@@ -127,6 +152,23 @@ public class MainActivity extends AppCompatActivity {
             getLastLocation();
         }
 
+
+
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString("currentFragmentTag", currentFrg.getTag());
+    }
+
+    private void changeFragment(Fragment currentFragment, Fragment nextFragment){
+
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.hide(currentFragment);
+        fragmentTransaction.show(nextFragment);
+        fragmentTransaction.commit();
 
     }
 
@@ -192,4 +234,8 @@ public class MainActivity extends AppCompatActivity {
         }
       
     }
-} 
+
+    /*public void jumpToHighCoins() {
+        binding.mainViewPager.setCurrentItem(binding.mainViewPager.getCurrentItem()+1);
+    }*/
+}

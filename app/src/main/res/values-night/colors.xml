@@ -1,9 +1,10 @@
 <resources>
-    <color name="md_theme_primary">#80D4D8</color>
-    <color name="md_theme_onPrimary">#003739</color>
+    <color name="md_theme_primary">#006769</color>
+    <color name="md_theme_onPrimary">#FFFFFF</color>
     <color name="md_theme_primaryContainer">#004F52</color>
     <color name="md_theme_onPrimaryContainer">#9CF1F4</color>
-    <color name="md_theme_secondary">@color/orangeDark</color>
+    <color name="md_theme_secondary">#40A578</color>
+    <color name="button_color">#C89600</color>
     <color name="md_theme_onSecondary">#1B3435</color>
     <color name="md_theme_secondaryContainer">#324B4C</color>
     <color name="md_theme_onSecondaryContainer">#CCE8E9</color>

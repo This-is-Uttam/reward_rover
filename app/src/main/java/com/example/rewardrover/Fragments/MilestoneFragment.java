@@ -2,6 +2,7 @@ package com.example.rewardrover.Fragments;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,12 +12,17 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.rewardrover.R;
+import com.example.rewardrover.databinding.FragmentMilestoneBinding;
+
+import mishmarot.guy.com.timelineunit.StepLineView;
 
 public class MilestoneFragment extends Fragment {
-
+    FragmentMilestoneBinding binding;
     private MilestoneViewModel mViewModel;
+
 
     public static MilestoneFragment newInstance() {
         return new MilestoneFragment();
@@ -25,7 +31,11 @@ public class MilestoneFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_milestone, container, false);
+        binding = FragmentMilestoneBinding.inflate(inflater, container, false);
+
+
+
+        return binding.getRoot();
     }
 
     @Override

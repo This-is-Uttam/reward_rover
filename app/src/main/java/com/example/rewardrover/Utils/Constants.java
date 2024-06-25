@@ -2,7 +2,7 @@ package com.example.rewardrover.Utils;
 
 public class Constants {
 
-    public static final String BASE_URL = "https://easyreward.in";
+    public static final String BASE_URL = "https://rewardrover.easyreward.in";
 
     //    Credential Urls
     public static final String LOGIN_API_URL = BASE_URL + "/api/login-verify";

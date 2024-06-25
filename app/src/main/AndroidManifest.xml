@@ -16,18 +16,37 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RewardRover"
         tools:targetApi="31">
-        <activity android:name=".Activities.SplashScreenActivity"
+        <activity android:name=".Activities.LoginActivity"
             android:exported="false">
 
         </activity>
-        <activity
-            android:name=".Activities.MainActivity"
+        <activity android:name=".Activities.MyInfoActivity"
+            android:exported="false">
+
+        </activity>
+        <activity android:name=".Activities.VoucherHistoryActivity"
+            android:exported="false">
+
+        </activity>
+        <activity android:name=".Activities.ReferralActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="false">
+
+        </activity>
+        <activity android:name=".Activities.SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+        <activity
+            android:name=".Activities.MainActivity"
+            android:exported="false">
+
+
         </activity>
     </application>
 

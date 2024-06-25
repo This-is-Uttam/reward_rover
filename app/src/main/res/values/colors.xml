@@ -1,10 +1,11 @@
 <resources>
-    <color name="md_theme_primary">#00696D</color>
+    <color name="md_theme_primary">#006769</color>
     <color name="md_theme_onPrimary">#FFFFFF</color>
     <color name="md_theme_primaryContainer">#9CF1F4</color>
     <color name="md_theme_onPrimaryContainer">#002021</color>
-    <color name="md_theme_secondary">@color/orangeDark</color>
+    <color name="md_theme_secondary">#40A578</color>
     <color name="md_theme_onSecondary">#FFFFFF</color>
+    <color name="button_color">@color/orangeDark</color>
     <color name="md_theme_secondaryContainer">#CCE8E9</color>
     <color name="md_theme_onSecondaryContainer">#041F20</color>
     <color name="md_theme_tertiary">#4D5F7C</color>
@@ -149,7 +150,7 @@
     //wizard data
 
         <!--    New colors-->
-        <color name="primaryColor">#0B5890</color>
+        <color name="primaryColor">@color/md_theme_primary</color>
         <color name="primaryVariantColor">#1F8CD8</color>
         <color name="secondaryColor">#023465</color>
         <color name="TertiaryColor">#4AB8B5</color>

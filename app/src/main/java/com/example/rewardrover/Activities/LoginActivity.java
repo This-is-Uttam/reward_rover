@@ -1,11 +1,17 @@
 package com.example.rewardrover.Activities;
 
-import static com.example.rewardrover.Utils.Constants.*;
+import static com.example.rewardrover.Utils.Constants.AUTHORISATION;
+import static com.example.rewardrover.Utils.Constants.BEARER;
+import static com.example.rewardrover.Utils.Constants.CONTENT_TYPE;
+import static com.example.rewardrover.Utils.Constants.CONTENT_TYPE_VALUE;
+import static com.example.rewardrover.Utils.Constants.DEVICE_ID;
+import static com.example.rewardrover.Utils.Constants.FCM_ID;
+import static com.example.rewardrover.Utils.Constants.LOGIN_API_URL;
+import static com.example.rewardrover.Utils.Constants.UPDATE_FCM;
+import static com.example.rewardrover.Utils.Constants.USER_API_URL;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
-import android.credentials.GetCredentialRequest;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
@@ -15,12 +21,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -38,6 +44,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -53,7 +60,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
-    public static final String WEB_CLIENT_ID = "724526109677-7jhs2433o51gq6hh56eo1rro8ubmnqnb.apps.googleusercontent.com";
+    public static final String WEB_CLIENT_ID = "68217820602-22eh5an983acet7f9s7vd1ukkjl4fru7.apps.googleusercontent.com";
+    private static final String TAG = "LoginActivity";
     ActivityLoginBinding binding;
     GoogleSignInClient gsc;
     FirebaseAuth firebaseAuth;
@@ -62,15 +70,18 @@ public class LoginActivity extends AppCompatActivity {
     public static String accessToken;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        FirebaseApp.initializeApp(this);
+
+        getDeviceIds();
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder()
-                .requestIdToken(WEB_CLIENT_ID)
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestProfile()
                 .requestEmail()
                 .build();
@@ -78,30 +89,28 @@ public class LoginActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
 
 
-        ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-                new ActivityResultCallback<ActivityResult>() {
-                    @Override
-                    public void onActivityResult(ActivityResult result) {
-                        if (result.getData() != null && result.getResultCode() == Activity.RESULT_OK) {
-                            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(result.getData());
+        ActivityResultLauncher<Intent> launcher =
+                registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                        result -> {
+                            if (result.getData() != null && result.getResultCode() == Activity.RESULT_OK) {
+                                Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(result.getData());
 
-                            if (task.getResult() != null) {
-                                Log.d("ooo", "onActivityResult: Login Activityy token " + task.getResult().getIdToken() + " profile " + task.getResult().getPhotoUrl());
+                                if (task.getResult() != null) {
+                                    Log.d("ooo", "onActivityResult: Login Activity token " + task.getResult().getIdToken() + " profile " + task.getResult().getPhotoUrl());
 
-                                firebaseAuthWithGoogle(task);
+                                    firebaseAuthWithGoogle(task);
+                                } else {
+                                    Log.d("ooo", "onActivityResult: Login Activity Null account");
+                                }
+
                             } else {
-                                Log.d("ooo", "onActivityResult: Login Acitivity Null account");
+                                Toast.makeText(LoginActivity.this, "No Account Selected", Toast.LENGTH_SHORT).show();
+                                Log.d(TAG, "onCreate: error Google sign in : " + result.getData().getDataString());
+                                binding.progressBar2.setVisibility(View.GONE);
+                                binding.googleSignIn.setClickable(true);
+                                binding.googleSignIn.setEnabled(true);
                             }
-
-                        } else {
-                            Toast.makeText(LoginActivity.this, "No Account Selected", Toast.LENGTH_SHORT).show();
-                            binding.progressBar2.setVisibility(View.GONE);
-                            binding.googleSignIn.setClickable(true);
-                            binding.googleSignIn.setEnabled(true);
-                        }
-                    }
-                });
-
+                        });
 
 
         binding.googleSignIn.setOnClickListener(new View.OnClickListener() {
@@ -112,7 +121,10 @@ public class LoginActivity extends AppCompatActivity {
                 binding.progressBar2.setVisibility(View.VISIBLE);
                 binding.googleSignIn.setClickable(false);
                 binding.googleSignIn.setEnabled(false);
+
+
             }
+
         });
     }
 
@@ -125,6 +137,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+                    // Google login is successful now
+
                     FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                     if (firebaseUser != null) {
                         String name = firebaseUser.getDisplayName();
@@ -133,10 +147,13 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<GetTokenResult> task) {
                                 if (task.isSuccessful()) {
+                                    // idMainToken (Bearer Token) is generated now
                                     String idMainToken = task.getResult().getToken();
-                                    authLogin(idMainToken, account.getDisplayName());
 
-//                                    String fcmToken = getFcmToken();
+                                    // sending idMainToken to our server
+                                    authLogin(idMainToken, firebaseUser.getDisplayName());
+
+                                    Toast.makeText(LoginActivity.this, "Hello, "+firebaseUser.getDisplayName(), Toast.LENGTH_SHORT).show();
                                     Log.d("firebaseAuthWithGoogle", "onComplete: task is successful, Your IdToken: " + idMainToken);
                                 } else {
                                     Log.d("firebaseAuthWithGoogle", "onComplete: task is not successful for IdToken");
@@ -154,6 +171,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    //  Login to our server
     private void authLogin(String idMainToken, String displayName) {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
@@ -171,53 +189,28 @@ public class LoginActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         if (response != null) {
                             try {
-                                if (response.getInt("code") == 201 && !response.getBoolean("status")){
+                                if (response.getInt("code") == 201 && !response.getBoolean("status")) {
 
 //                                    If Login is not successfull
 
                                     Log.d("authLogin", "onResponse: response is Failed " + response.getString("data"));
                                     gsc.signOut();
                                     binding.progressBar2.setVisibility(View.GONE);
-//                                    Toast.makeText(LoginActivity.this, ""+response.getString("data"), Toast.LENGTH_LONG).show();
 
-//                                    Error Dialog..........
-                                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(LoginActivity.this, R.style.CustomDialog);
+//                                   Show Error Dialog..........
 
-                                    View view = LayoutInflater.from(LoginActivity.this).inflate(R.layout.alert_dialog_layout, null);
-                                    ImageView dialogImg = view.findViewById(R.id.dialogImg);
-                                    TextView dialogTitle = view.findViewById(R.id.dialogTitle);
-                                    TextView dialogSubtitle = view.findViewById(R.id.dialogSubtitle);
-                                    TextView positiveBtn = view.findViewById(R.id.positiveBtn);
-                                    TextView negativeBtn = view.findViewById(R.id.negativeBtn);
+                                    showErrorDialog(response.getString("data"));
 
-                                    dialogImg.setImageDrawable(getResources().getDrawable(R.drawable.baseline_error_24,getTheme()));
-                                    dialogTitle.setText("Error!");
-                                    dialogSubtitle.setText(response.getString("data"));
-                                    positiveBtn.setText("Okay");
-                                    negativeBtn.setVisibility(View.GONE);
-
-                                    dialogBuilder.setView(view);
-                                    dialogBuilder.setCancelable(false);
-                                    AlertDialog dialog = dialogBuilder.create();
-
-                                    positiveBtn.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            dialog.dismiss();
-                                        }
-                                    });
-
-                                    dialog.show();
-
-                                }
-                                else {
-//                                    Login Successfully
+                                } else {
+//                                    Login Successfully / got our API Access Token to call every API in the app.
 
                                     Log.d("authLogin", "onResponse: response is Successfull " + response.getString("data"));
                                     String accessMainToken = response.getString("data");
 
+                                    // Setting AccessToken to Shared Preferences.
                                     ControlRoom.getInstance().setAccessToken(LoginActivity.this, accessMainToken);
 
+//                                   Getting Firebase Messaging Token
                                     getFcmToken();
                                     Toast.makeText(getApplicationContext(), "Welcome " + displayName, Toast.LENGTH_SHORT).show();
                                 }
@@ -237,17 +230,49 @@ public class LoginActivity extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> header = new HashMap<>();
                 header.put(CONTENT_TYPE, CONTENT_TYPE_VALUE);
-                header.put(AUTHORISATION, "Bearer " + idMainToken);
+                header.put(AUTHORISATION, "Bearer " + idMainToken); // idMainToken is passed to sever via header
                 return header;
             }
         };
         requestQueue.add(jsonObjectRequest);
     }
 
+    public void showErrorDialog(String subtitle) throws JSONException {
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(LoginActivity.this, R.style.CustomDialog);
+
+        View view = LayoutInflater.from(LoginActivity.this).inflate(R.layout.alert_dialog_layout, null);
+        ImageView dialogImg = view.findViewById(R.id.dialogImg);
+        TextView dialogTitle = view.findViewById(R.id.dialogTitle);
+        TextView dialogSubtitle = view.findViewById(R.id.dialogSubtitle);
+        TextView positiveBtn = view.findViewById(R.id.positiveBtn);
+        TextView negativeBtn = view.findViewById(R.id.negativeBtn);
+
+        dialogImg.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.baseline_error_24, getTheme()));
+        dialogTitle.setText("Error!");
+        dialogSubtitle.setText(subtitle);
+        positiveBtn.setText("Okay");
+        negativeBtn.setVisibility(View.GONE);
+
+        dialogBuilder.setView(view);
+        dialogBuilder.setCancelable(false);
+        AlertDialog dialog = dialogBuilder.create();
+
+        positiveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
     public String getDeviceIds() {
 //        getting Device ID
 
         String deviceId1 = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+        Log.d(TAG, "getDeviceIds: Device Id : " + deviceId1);
         return deviceId1;
     }
 
@@ -325,23 +350,23 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    if (response.getBoolean("status") && response.getInt("code") == 200){
-                        Log.d("checkReferral", "onResponse: Refer Stutus Activity: "+ response.getString("data"));
+                    if (response.getBoolean("status") && response.getInt("code") == 200) {
+                        Log.d("checkReferral", "onResponse: Refer Stutus Activity: " + response.getString("data"));
                         JSONObject userData = response.getJSONObject("data");
                         ControlRoom.getInstance().setUserData(userData, LoginActivity.this);
-                       int referStatus = response.getJSONObject("data").getInt("refer_status");
+                        int referStatus = response.getJSONObject("data").getInt("refer_status");
 
-                       if (referStatus == 0){
+                        if (referStatus == 0) {
 //                           show referral activity..
-                           Log.d("checkReferral", "onResponse: No Referral Code..refer_status: "+ referStatus);
-                           startActivity(new Intent(LoginActivity.this, ReferralActivity.class));
-                           finish();
-                       }else {
-                           Log.d("checkReferral", "onResponse: Referral Code Available..refer_status: "+ referStatus);
+                            Log.d("checkReferral", "onResponse: No Referral Code..refer_status: " + referStatus);
+                            startActivity(new Intent(LoginActivity.this, ReferralActivity.class));
+                            finish();
+                        } else {
+                            Log.d("checkReferral", "onResponse: Referral Code Available..refer_status: " + referStatus);
 
-                           startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                           finish();
-                       }
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                            finish();
+                        }
                     }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -351,12 +376,12 @@ public class LoginActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Log.d("checkReferral", "onResponse: Referral Code Something went wrong! : "+error.getMessage());
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String,String> header = new HashMap<>();
+                HashMap<String, String> header = new HashMap<>();
                 header.put(CONTENT_TYPE, CONTENT_TYPE_VALUE);
                 header.put(AUTHORISATION, BEARER + ControlRoom.getInstance().getAccessToken(LoginActivity.this));
                 return header;

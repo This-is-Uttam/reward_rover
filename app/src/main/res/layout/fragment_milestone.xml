@@ -10,4 +10,9 @@
         android:layout_height="match_parent"
         android:text="Hello" />
 
+    <mishmarot.guy.com.timelineunit.StepLineLayout
+        android:id="@+id/stepper"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"/>
+
 </FrameLayout>

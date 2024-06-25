@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rewardrover.R;
+import com.example.rewardrover.databinding.CarouselItemBinding;
 import com.example.rewardrover.databinding.PromotionRvItemBinding;
 import com.squareup.picasso.Picasso;
 import com.example.rewardrover.Modals.BannerModal;
@@ -37,7 +38,7 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.Viewholder
     @NonNull
     @Override
     public BannerAdapter.Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.promotion_rv_item,parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.carousel_item,parent, false);
         return new Viewholder(view);
     }
 
@@ -48,11 +49,11 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.Viewholder
         Picasso.get()
                 .load(bannerModal.getBannerImg())
                 .placeholder(R.drawable.placeholder)
-                .into(holder.binding.promotionImg);
+                .into(holder.binding.carouselImage);
 
-        holder.binding.promotionBannerUrl.setText(bannerModal.getBannerImgLink());
+//        holder.binding.promotionBannerUrl.setText(bannerModal.getBannerImgLink());
 
-        holder.binding.promotionImg.setOnClickListener(new View.OnClickListener() {
+        holder.binding.carouselImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -72,11 +73,13 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.Viewholder
     }
 
     public class Viewholder extends RecyclerView.ViewHolder {
-        PromotionRvItemBinding binding;
+//        PromotionRvItemBinding binding;
+        CarouselItemBinding binding;
         public Viewholder(@NonNull View itemView) {
             super(itemView);
 //            promotionImg = itemView.findViewById(R.id.promotionImg);
-            binding = PromotionRvItemBinding.bind(itemView);
+            binding = CarouselItemBinding.bind(itemView);
+//            binding = PromotionRvItemBinding.bind(itemView);
         }
 
     }

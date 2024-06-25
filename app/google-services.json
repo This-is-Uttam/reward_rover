@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "68217820602",
+    "project_id": "reward-rover-8e8e4",
+    "storage_bucket": "reward-rover-8e8e4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:68217820602:android:6e19d7eedbf9af1913b983",
+        "android_client_info": {
+          "package_name": "com.example.rewardrover"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "68217820602-22eh5an983acet7f9s7vd1ukkjl4fru7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.rewardrover",
+            "certificate_hash": "a640b01df860fe4b52ca8a4cd1fac597ca275860"
+          }
+        },
+        {
+          "client_id": "68217820602-nbu1d5gi12im0mn6sj5vdu9ga4domfh9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC14POa3UNucMhy1m2fAgI9wYVq0BGx_U8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "68217820602-nbu1d5gi12im0mn6sj5vdu9ga4domfh9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
