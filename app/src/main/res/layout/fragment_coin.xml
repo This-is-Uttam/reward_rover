@@ -61,7 +61,7 @@
                         android:paddingBottom="5dp"
                         android:singleLine="true"
                         android:text="0"
-                        android:textColor="@color/md_theme_primary"
+                        android:textColor="@color/black"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/coinTxt"
                         app:layout_constraintEnd_toStartOf="@+id/coinTxt"
@@ -84,7 +84,7 @@
                         android:paddingBottom="5dp"
                         android:singleLine="true"
                         android:text="0"
-                        android:textColor="@color/md_theme_primary"
+                        android:textColor="@color/black"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/appLogo"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -136,10 +136,13 @@
                             <!--                <RelativeLayout-->
                             <!--                    android:layout_width="wrap_content"-->
                             <!--                    android:layout_height="match_parent"-->
+
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/bannerContainer"
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="150sp"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
                                 app:layoutManager="com.google.android.material.carousel.CarouselLayoutManager"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintHorizontal_bias="0.5"
@@ -166,7 +169,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="80dp"
                                 android:layout_marginStart="16dp"
-                                android:layout_marginTop="8dp"
+                                android:layout_marginTop="16dp"
                                 android:layout_marginEnd="16dp"
                                 android:foreground="?attr/selectableItemBackground"
                                 app:cardCornerRadius="16dp"
@@ -219,7 +222,7 @@
                                         android:ellipsize="end"
                                         android:maxLines="2"
                                         android:singleLine="false"
-                                        android:text="Earn coins from this offer."
+                                        android:text="Earn prize from this offer."
                                         android:textColor="@color/md_theme_onPrimary"
                                         android:textSize="12sp"
                                         app:layout_constraintBottom_toTopOf="@+id/textView7"
@@ -232,14 +235,14 @@
                                         android:id="@+id/textView7"
                                         android:layout_width="0dp"
                                         android:layout_height="24dp"
-                                        android:background="@color/orangeDark"
+                                        android:background="@color/button_color"
                                         android:drawableEnd="@drawable/right_arrow"
-                                        android:drawableTint="#000000"
+                                        android:drawableTint="@android:color/black"
                                         android:fontFamily="@font/alatsi_regular"
                                         android:gravity="center_vertical|end"
                                         android:paddingEnd="16dp"
                                         android:text="Check it out"
-                                        android:textColor="#000000"
+                                        android:textColor="@android:color/black"
                                         android:textSize="12sp"
                                         app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toEndOf="parent"
@@ -266,10 +269,119 @@
                                         android:padding="8dp"
                                         android:paddingStart="16dp"
                                         android:paddingEnd="16dp"
-                                        android:text="Earn upto \n1000+ coins"
-                                        android:textColor="#000000"
+                                        android:text="Earn upto \n1000+ prize"
+                                        android:textColor="@android:color/black"
                                         android:textSize="10sp"
                                         app:layout_constraintBottom_toTopOf="@+id/textView7"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+                            </androidx.cardview.widget.CardView>
+
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/playTimeCard"
+                                android:layout_width="0dp"
+                                android:layout_height="80dp"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="16dp"
+                                android:layout_marginEnd="16dp"
+                                android:foreground="?attr/selectableItemBackground"
+                                android:visibility="visible"
+                                app:cardCornerRadius="16dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/cardView">
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/playtime_bg">
+
+                                    <androidx.cardview.widget.CardView
+                                        android:id="@+id/cardView4"
+                                        android:layout_width="38dp"
+                                        android:layout_height="38dp"
+                                        android:layout_marginStart="8dp"
+                                        android:layout_marginTop="8dp"
+                                        app:cardCornerRadius="8dp"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent">
+
+                                        <ImageView
+                                            android:id="@+id/imageViewL"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            app:srcCompat="@drawable/playtime_logo" />
+                                    </androidx.cardview.widget.CardView>
+
+
+                                    <TextView
+                                        android:id="@+id/tvplaytimetitle"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="16dp"
+                                        android:fontFamily="@font/alatsi_regular"
+                                        android:text="Playtime Offerwall"
+                                        android:textColor="@color/md_theme_onPrimary"
+                                        app:layout_constraintEnd_toStartOf="@+id/tvEarnupto"
+                                        app:layout_constraintStart_toEndOf="@+id/cardView4"
+                                        app:layout_constraintTop_toTopOf="@+id/cardView4" />
+
+                                    <TextView
+                                        android:id="@+id/textViewpTdesc"
+                                        android:layout_width="0dp"
+                                        android:layout_height="0dp"
+                                        android:layout_marginEnd="8dp"
+                                        android:alpha="0.7"
+                                        android:ellipsize="end"
+                                        android:maxLines="2"
+                                        android:singleLine="false"
+                                        android:text="Earn coins by completing tasks."
+                                        android:textColor="@color/md_theme_onPrimary"
+                                        android:textSize="12sp"
+                                        app:layout_constraintBottom_toTopOf="@+id/tvcheckout"
+                                        app:layout_constraintEnd_toEndOf="@+id/tvplaytimetitle"
+                                        app:layout_constraintHorizontal_bias="1.0"
+                                        app:layout_constraintStart_toStartOf="@+id/tvplaytimetitle"
+                                        app:layout_constraintTop_toBottomOf="@+id/tvplaytimetitle" />
+
+                                    <TextView
+                                        android:id="@+id/tvcheckout"
+                                        android:layout_width="0dp"
+                                        android:layout_height="24dp"
+                                        android:background="#C069D7"
+                                        android:drawableEnd="@drawable/right_arrow"
+                                        android:drawableTint="@android:color/black"
+                                        android:fontFamily="@font/alatsi_regular"
+                                        android:gravity="center_vertical|end"
+                                        android:paddingEnd="16dp"
+                                        android:text="Check it out"
+                                        android:textColor="@android:color/black"
+                                        android:textSize="12sp"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent" />
+
+
+
+                                    <TextView
+                                        android:id="@+id/tvEarnupto"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="4dp"
+                                        android:background="@drawable/circular_solid_bg"
+                                        android:backgroundTint="#5E2CEC"
+                                        android:fontFamily="@font/alatsi_regular"
+                                        android:padding="8dp"
+                                        android:paddingStart="16dp"
+                                        android:paddingEnd="16dp"
+                                        android:text="Earn upto \n1000+ prize"
+                                        android:textColor="@color/whiteOnly"
+                                        android:textSize="10sp"
+                                        app:layout_constraintBottom_toTopOf="@+id/tvcheckout"
                                         app:layout_constraintEnd_toEndOf="parent"
                                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -310,7 +422,7 @@
                                         android:id="@+id/textView3"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Convert every minute into UNLIMITED coins!"
+                                        android:text="Convert every minute into UNLIMITED prize!"
                                         android:textColor="@color/md_theme_onPrimary"
                                         app:layout_constraintEnd_toEndOf="parent"
                                         app:layout_constraintHorizontal_bias="0.5"
@@ -327,7 +439,7 @@
                                         android:paddingLeft="32dp"
                                         android:paddingRight="32dp"
                                         android:text="10000 Coins"
-                                        android:textColor="@color/md_theme_onSecondaryContainer"
+                                        android:textColor="@android:color/black"
                                         app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toEndOf="parent"
                                         app:layout_constraintHorizontal_bias="0.5"
@@ -345,10 +457,102 @@
                                         android:paddingStart="24dp"
                                         android:paddingEnd="16dp"
                                         android:text="Grab Now!"
-                                        android:textColor="@color/black"
+                                        android:textColor="@android:color/black"
                                         android:textStyle="bold"
                                         app:layout_constraintStart_toStartOf="parent"
                                         app:layout_constraintTop_toTopOf="parent" />
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            </androidx.cardview.widget.CardView>
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/adNetCard"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="16dp"
+                                android:layout_marginEnd="16dp"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:foreground="?attr/selectableItemBackground"
+                                android:foregroundGravity="clip_horizontal"
+                                android:visibility="visible"
+                                app:cardCornerRadius="16dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.5"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textView">
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/rewards_drawable"
+                                    android:padding="4dp">
+
+                                    <ImageView
+                                        android:id="@+id/adNetImg"
+                                        android:layout_width="82dp"
+                                        android:layout_height="82dp"
+                                        android:layout_marginTop="16dp"
+                                        android:layout_marginEnd="16dp"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        app:srcCompat="@drawable/money_daily" />
+
+                                    <TextView
+                                        android:id="@+id/adNetName"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="8dp"
+                                        android:layout_marginStart="16dp"
+                                        android:fontFamily="@font/alatsi_regular"
+                                        android:singleLine="true"
+                                        android:text="Daily Coins"
+                                        android:textSize="34sp"
+                                        android:textStyle="bold"
+                                        app:layout_constraintEnd_toStartOf="@+id/adNetImg"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="@+id/adNetImg" />
+
+                                    <Button
+                                        android:id="@+id/dailyCoinBtn"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="16dp"
+                                        android:layout_marginTop="4dp"
+                                        android:layout_marginEnd="16dp"
+                                        android:backgroundTint="@color/button_color"
+                                        android:enabled="false"
+                                        android:text="Claim"
+                                        android:textColor="@android:color/black"
+                                        android:visibility="visible"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintHorizontal_bias="0.0"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toBottomOf="@+id/adNetImg" />
+
+                                    <TextView
+                                        android:id="@+id/textView24"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:text="Visit daily to get free coins"
+                                        app:layout_constraintBottom_toBottomOf="@+id/adNetImg"
+                                        app:layout_constraintEnd_toEndOf="@+id/adNetName"
+                                        app:layout_constraintStart_toStartOf="@+id/adNetName"
+                                        app:layout_constraintTop_toBottomOf="@+id/adNetName" />
+
+                                    <ProgressBar
+                                        android:id="@+id/dailyCoinProgressbar"
+                                        style="?android:attr/progressBarStyle"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:visibility="gone"
+                                        app:layout_constraintBottom_toBottomOf="@+id/dailyCoinBtn"
+                                        app:layout_constraintEnd_toEndOf="@+id/dailyCoinBtn"
+                                        app:layout_constraintStart_toStartOf="@+id/dailyCoinBtn"
+                                        app:layout_constraintTop_toTopOf="@+id/dailyCoinBtn"
+                                        app:layout_constraintVertical_bias="0.0" />
+
                                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                             </androidx.cardview.widget.CardView>
@@ -357,10 +561,11 @@
                                 android:id="@+id/adNetRv"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
                                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                                 app:layout_constraintEnd_toEndOf="@+id/pubCard"
                                 app:layout_constraintStart_toStartOf="@+id/pubCard"
-                                app:layout_constraintTop_toBottomOf="@+id/textView"
+                                app:layout_constraintTop_toBottomOf="@+id/adNetCard"
                                 app:spanCount="2"
                                 tools:itemCount="2"
                                 tools:listitem="@layout/ad_net_rv_item" />
@@ -369,6 +574,7 @@
                                 android:id="@+id/watchVidRv"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:visibility="gone"
                                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                                 app:layout_constraintEnd_toEndOf="@+id/adNetRv"
                                 app:layout_constraintStart_toStartOf="@+id/adNetRv"
@@ -382,12 +588,12 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
-                                android:layout_marginTop="8dp"
+                                android:layout_marginTop="16dp"
                                 android:fontFamily="@font/alatsi_regular"
                                 android:text="Earn Coins"
                                 android:textSize="24sp"
                                 app:layout_constraintStart_toStartOf="@+id/pubCard"
-                                app:layout_constraintTop_toBottomOf="@+id/cardView" />
+                                app:layout_constraintTop_toBottomOf="@+id/playTimeCard" />
 
                             <TextView
                                 android:id="@+id/textView9"
@@ -399,7 +605,8 @@
                                 android:text="Watch &amp; Earn"
                                 android:textSize="24sp"
                                 app:layout_constraintStart_toStartOf="@+id/pubCard"
-                                app:layout_constraintTop_toBottomOf="@+id/adNetRv" />
+                                app:layout_constraintTop_toBottomOf="@+id/adNetRv"
+                                android:visibility="gone" />
 
                             <TextView
                                 android:id="@+id/textView8"
@@ -410,6 +617,7 @@
                                 android:fontFamily="@font/alatsi_regular"
                                 android:text="Buy Coins"
                                 android:textSize="24sp"
+                                android:visibility="gone"
                                 app:layout_constraintStart_toStartOf="@+id/pubCard"
                                 app:layout_constraintTop_toBottomOf="@+id/watchVidRv" />
 
@@ -417,6 +625,7 @@
                                 android:id="@+id/buyCoinRv"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:visibility="gone"
                                 app:layout_constraintEnd_toEndOf="@+id/cardView"
                                 app:layout_constraintStart_toStartOf="@+id/cardView"
                                 app:layout_constraintTop_toBottomOf="@+id/textView8"

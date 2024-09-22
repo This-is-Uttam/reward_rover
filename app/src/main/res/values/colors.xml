@@ -1,5 +1,5 @@
 <resources>
-    <color name="md_theme_primary">#006769</color>
+    <color name="md_theme_primary">#189F91</color>
     <color name="md_theme_onPrimary">#FFFFFF</color>
     <color name="md_theme_primaryContainer">#9CF1F4</color>
     <color name="md_theme_onPrimaryContainer">#002021</color>
@@ -145,6 +145,7 @@
     <color name="shimmerColor">#c2c2c2</color>
     <color name="completedColor">#0091EA</color>
     <color name="whiteOnly">#ffffff</color>
+    <color name="disableTextColor">#80000000</color>
 
 
     //wizard data
@@ -204,8 +205,8 @@
         <color name="nav_item_unselected">#99595959</color>
 
     <color name="greenn">#06D864</color>
-
-
+    <color name="green_tick_color">#80F1B3</color>
+    <color name="pendingColor">#99FF9100</color>
 
 
 </resources>

@@ -84,7 +84,7 @@
                 app:layout_constraintTop_toTopOf="@+id/buyCard">
 
                 <TextView
-                    android:id="@+id/textView30"
+                    android:id="@+id/dob"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"

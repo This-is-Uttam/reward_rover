@@ -11,7 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context="com.example.rewardrover.Activities.ReferralActivity">
+        tools:context="com.app.rewardcycle.Activities.ReferralActivity">
 
         <TextView
             android:id="@+id/textView2"
@@ -130,7 +130,7 @@
             android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Enter referral code earn coins."
+            android:text="Enter referral code earn prize."
             app:layout_constraintEnd_toEndOf="@+id/textView2"
             app:layout_constraintStart_toStartOf="@+id/textView2"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />

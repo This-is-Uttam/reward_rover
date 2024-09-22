@@ -65,4 +65,9 @@
         <item name="fontFamily">@font/alatsi_regular</item>
         <item name="android:textSize">24dp</item>
     </style>
+
+    <style name="roundCornerImageview" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>

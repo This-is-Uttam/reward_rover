@@ -13,7 +13,7 @@
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
+            android:background="@color/md_theme_surface"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
 <!--TODO: implement Shimmer effect-->
@@ -63,7 +63,7 @@
                     android:paddingStart="30dp"
                     android:paddingEnd="30dp"
                     android:text="Refer and Earn"
-                    android:textColor="@color/white"
+                    android:textColor="@color/md_theme_onPrimary"
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -89,6 +89,7 @@
                     android:layout_marginTop="24dp"
                     android:fontFamily="@font/alatsi_regular"
                     android:textColor="@color/black"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@+id/textView32"
                     app:layout_constraintStart_toStartOf="@+id/textView35"
                     app:layout_constraintTop_toBottomOf="@+id/referBtn" />
@@ -101,9 +102,10 @@
                     android:fontFamily="@font/alatsi_regular"
                     android:text="Leader Board"
                     android:textAllCaps="true"
-                    android:textColor="@color/primaryColor"
+                    android:textColor="@color/black"
                     android:textSize="20sp"
-                    app:layout_constraintStart_toStartOf="@+id/referEarnIntro"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/referEarnIntro" />
 
                 <TextView
@@ -191,10 +193,11 @@
                     android:id="@+id/textView36"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:text="Rank"
                     android:textColor="@color/black"
-                    app:layout_constraintStart_toStartOf="@+id/textView37"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView37" />
 
                 <LinearLayout
@@ -292,7 +295,35 @@
         android:visibility="gone"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:itemCount="4"
-        tools:listitem="@layout/leader_board_rv_item" />
+        tools:listitem="@layout/leader_board_rv_item" >
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/loadinglayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+        <View
+            android:id="@+id/view12"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:foregroundGravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <!--    </androidx.core.widget.NestedScrollView>-->
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

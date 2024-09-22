@@ -1,10 +1,10 @@
 <resources>
-    <color name="md_theme_primary">#006769</color>
+    <color name="md_theme_primary">#189F91</color>
     <color name="md_theme_onPrimary">#FFFFFF</color>
     <color name="md_theme_primaryContainer">#004F52</color>
     <color name="md_theme_onPrimaryContainer">#9CF1F4</color>
     <color name="md_theme_secondary">#40A578</color>
-    <color name="button_color">#C89600</color>
+    <color name="button_color">@color/orangeDark</color>
     <color name="md_theme_onSecondary">#1B3435</color>
     <color name="md_theme_secondaryContainer">#324B4C</color>
     <color name="md_theme_onSecondaryContainer">#CCE8E9</color>
@@ -18,7 +18,7 @@
     <color name="md_theme_onErrorContainer">#FFDAD6</color>
     <color name="md_theme_background">#0E1415</color>
     <color name="md_theme_onBackground">#DDE4E3</color>
-    <color name="md_theme_surface">#0E1415</color>
+    <color name="md_theme_surface">#1A006769</color>
     <color name="md_theme_onSurface">#DDE4E3</color>
     <color name="md_theme_surfaceVariant">#3F4949</color>
     <color name="md_theme_onSurfaceVariant">#BEC8C8</color>
@@ -174,6 +174,7 @@
     <color name="lightGreen">#6CFFA9</color>
 
     <color name="black">#FFFFFFFF</color>
+    <color name="disableTextColor">#80FFFFFF</color>
     <color name="white">#FF000000</color>
     <color name="orangeDark">#DAA506</color>
     <color name="orangeDark2">#DFA700</color>
@@ -198,5 +199,6 @@
 
 
     <color name="greenn">#05CC5D</color>
+    <color name="green_tick_color">#80F1B3</color>
 
 </resources>
